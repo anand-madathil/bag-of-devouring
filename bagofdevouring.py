@@ -7,6 +7,13 @@ import numpy as np
 choice = np.array(["yes", "no"])
 amountpulled = int(0)
 
+class dirtyworkdoer(object):
+	def findExpectation(self, iterations):
+		weightpulled = int(0)
+		bag = bagofdevouring(np.array([100,200,300,400,500,600,700,800,900,1000]), np.array([100,200,300,400,500,600,700,800,900,1000]))
+		for i in range (0, iterations):
+			weightpulled = weightpulled + bag.smartpull()
+		print "expectation obtained is:", (float(weightpulled) / iterations), "with", iterations, "tries"
 class bagofdevouring(object):
 	def __init__(self, values, weight):
 		self.values = values
@@ -34,7 +41,6 @@ class bagofdevouring(object):
 		while len(self.values) > 0:
 			self.pullout(np.argmax(self.values))
 		return self.weightpulled
-bag = bagofdevouring(np.array([100,200,300,400,500,600,700,800,900,1000]), np.array([100,200,300,400,500,600,700,800,900,1000]))
-print "weight pulled from this iteration of the bag is", bag.smartpull()
-
+comp = dirtyworkdoer()
+comp.findExpectation(input("input how many iterations you want: "))
 
