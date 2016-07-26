@@ -19,8 +19,10 @@ class bagofdevouring(object):
 	def pullout(self, slotno):
 		self.valuepulled = self.valuepulled + self.values[slotno]
 		self.values = np.delete(self.values, slotno)
-		while atebefore == 0:
+		i = 0		
+		while self.atebefore == 0 and i < len(self.values):
 			self.destroy(i)
+			i = i + 1
 		self.atebefore = 0
 
 	def destroy(self, slotno):
@@ -49,15 +51,30 @@ class bagofdevouring(object):
 		weightpull = int(0)
 		for i in range (0, iterations):
 			weightpull = weightpull + self.smartpull()
+			print self.values
 			self.values = self.storevalues
 			print self.values
 		print "expectation obtained is:", (float(weightpull) / iterations), "with", iterations, "tries", weightpull
 
-	def expectedYield(self):
+	#EXPERIMENTAL
+	#def expectedYield(self):
+		#self.expectedYiel(len(self.values))
+	#def expectedYieldd(self, length):
+		#yieldExpect = np.argmax(self.values)
+		#self.values = np.delete(self.values, np.argmax(self.values))
+		#xlist = np.array([])
+		#for x in range (1, length + 1):
+			#for i in range (0, length - x):
+				#xlist = np.append(xlist, 0)
+			#xlist = np.append(xlist, 1)		
+			#for i in range (0, length - (length - x + 1)):
+				#xlist = np.append(xlist, 0)		
+			#print xlist
+			#if length > 0:
+				#self.expectedYieldd(length - 1)
+			#xlist = np.array([])
 		#only one object can get eaten at a time
 		#yield is 1st + P(2nd doesnt get eaten)*2nd*P(3rd doesnt get eaten)*3
-		for i in itertools.product([0,1],repeat=len(self.values) - 1):
-			print i
 		#this creates a binary count, which creates each outcome
 if __name__ == "__main__":
 	bag = bagofdevouring(np.array([100,200,300]), np.array([100,200,300]))
