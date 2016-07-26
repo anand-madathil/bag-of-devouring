@@ -44,14 +44,9 @@ class bagofdevouring(object):
 		weightpull = int(0)
 		for i in range (0, iterations):
 			weightpull = weightpull + self.smartpull()
-		print "expectation obtained is:", (float(valuepulled) / iterations), "with", iterations, "tries"
-	
-	def expectedYield():
-		for pick in range(0, len(self.values)):
+		print "expectation obtained is:", (float(weightpull) / iterations), "with", iterations, "tries"
 			
-
 if __name__ == "__main__":
 	bag = bagofdevouring(np.array([100,200,300,400,500,600,700,800,900,1000]), np.array([100,200,300,400,500,600,700,800,900,1000]))
-	comp = dirtyworkdoer()
-	comp.findExpectation(input("input how many iterations you want: "))
+	bag.findExpectation(input("input how many iterations you want: "))
 
