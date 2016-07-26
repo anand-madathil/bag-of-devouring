@@ -5,34 +5,25 @@ import numpy as np
 #destroy items
 #expected yield
 choice = np.array(["yes", "no"])
-amountpulled = int(0)
-
-class dirtyworkdoer(object):
-
-	def findExpectation(self, iterations):
-		weightpulled = int(0)
-		bag = bagofdevouring(np.array([100,200,300,400,500,600,700,800,900,1000]), np.array([100,200,300,400,500,600,700,800,900,1000]))
-		for i in range (0, iterations):
-			weightpulled = weightpulled + bag.smartpull()
-		print "expectation obtained is:", (float(weightpulled) / iterations), "with", iterations, "tries"
 
 class bagofdevouring(object):
 
 	def __init__(self, values, weight):
 		self.values = values
 		self.weight = weight
-		self.weightpulled = int(0)
+		self.valuepulled = int(0)
 
 	def pullout(self, slotno):
-		self.weightpulled = self.weightpulled + self.values[slotno]
+		self.valuepulled = self.valuepulled + self.values[slotno]
 		self.values = np.delete(self.values, slotno)
 		for i in range(0,len(self.values - 1)):
 			self.destroy(i)
 
 	def destroy(self, slotno):
 		#destroy chance = weight of object / weight of bag + 100
-		if np.random.choice(choice, p = [float(self.values[slotno]) / (np.sum(self.values) + 100), 1 - float(self.values[slotno]) / (np.sum(self.values) + 100)]) == "yes":
+		if np.random.choice(choice, p = [float(self.weight[slotno]) / (np.sum(self.weight) + 100), 1 - float(self.weight[slotno]) / (np.sum(self.weight) + 100)]) == "yes":
 			self.values[slotno] = 0
+			self.weight[slotno] = 0
 
 	def bagstatus(self):
 		location = str()
@@ -47,9 +38,20 @@ class bagofdevouring(object):
 	def smartpull(self):
 		while len(self.values) > 0:
 			self.pullout(np.argmax(self.values))
-		return self.weightpulled
+		return self.valuepulled
+
+	def findExpectation(self, iterations):
+		weightpull = int(0)
+		for i in range (0, iterations):
+			weightpull = weightpull + self.smartpull()
+		print "expectation obtained is:", (float(valuepulled) / iterations), "with", iterations, "tries"
+	
+	def expectedYield():
+		for pick in range(0, len(self.values)):
+			
 
 if __name__ == "__main__":
+	bag = bagofdevouring(np.array([100,200,300,400,500,600,700,800,900,1000]), np.array([100,200,300,400,500,600,700,800,900,1000]))
 	comp = dirtyworkdoer()
 	comp.findExpectation(input("input how many iterations you want: "))
 
