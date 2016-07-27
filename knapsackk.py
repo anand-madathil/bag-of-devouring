@@ -15,7 +15,7 @@ def Knapsack(maxweight, weight, value, n):
 if __name__ == "__main__":
 	
 	#print Knapsack([100,200,300], [100,50,650], 3, 700)
-	v = [201,300,223]
-	w = [50,650,49]
-	print Knapsack(700, w , v, len(v))
+	v = [100,100,150,400]
+	w = [100,100,200,400]
+	print Knapsack(600, w , v, len(v))
 
